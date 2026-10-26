@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 # 0. Read image
-img = cv2.imread("./placa4.jpg", cv2.IMREAD_UNCHANGED)
+img = cv2.imread("./placa3.jpg", cv2.IMREAD_UNCHANGED)
 
 # 1. Convert to grayscale
 gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -36,7 +36,7 @@ for i in range(1, objects):
 probable_areas = sorted(big_areas_id, key=lambda label_id: stats[label_id, cv2.CC_STAT_AREA], reverse = True)
 
 if len(probable_areas) >= 2:
-    placa_label_id = probable_areas[2]  # El segundo más grande
+    placa_label_id = probable_areas[1]  # El segundo más grande
 elif len(probable_areas) == 1:
     placa_label_id = probable_areas[0]  # Único objeto grande
 else:
