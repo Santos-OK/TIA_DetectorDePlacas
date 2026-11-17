@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 # 0. Leer imagen
-img = cv2.imread("./placa4.jpg", cv2.IMREAD_UNCHANGED)
+img = cv2.imread("./placa2.jpeg", cv2.IMREAD_UNCHANGED)
 
 # 1. Convertir a escala de grises y reducir ruido
 gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)

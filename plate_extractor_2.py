@@ -104,7 +104,7 @@ def extract_plate_mask(img):
 
 
 if __name__ == "__main__":
-    path = sys.argv[1] if len(sys.argv) > 1 else "./placa2.jpg"
+    path = sys.argv[1] if len(sys.argv) > 1 else "./placa2.jpeg"
 
     # 0. Leer imagen
     img = cv2.imread(path, cv2.IMREAD_UNCHANGED)
