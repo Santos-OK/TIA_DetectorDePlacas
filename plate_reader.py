@@ -131,7 +131,7 @@ if __name__ == "__main__":
     placa_recortada = cv2.imread("./placa5.jpg")
     
     # Descomenta la siguiente línea UNA VEZ para guardar los caracteres reales de placa4.jpg:
-    #recolectar_plantillas(placa_recortada)
+    recolectar_plantillas(placa_recortada)
     
     resultado, _, vis = extraer_y_leer_placa(placa_recortada)
     print(f"Placa leída: {resultado}")
