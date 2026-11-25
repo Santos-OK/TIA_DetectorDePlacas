@@ -186,6 +186,22 @@ def extraer_y_leer_placa(img_placa_recortada, plantillas=None):
 
     return texto_placa, bin_inv, vis
 
+def leer_con_pasos(img_placa_recortada, plantillas=None):
+    """Ejecuta la lectura guardando las etapas intermedias de caracteres para la GUI."""
+    gray_v = img_placa_recortada.max(axis=2)
+    blur = cv2.GaussianBlur(gray_v, (3, 3), 0)
+    k = int(blur.shape[0] * 0.22) | 1
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (k, k))
+    blackhat = cv2.morphologyEx(blur, cv2.MORPH_BLACKHAT, kernel)
+
+    texto, bin_inv, vis_chars = extraer_y_leer_placa(img_placa_recortada, plantillas)
+
+    pasos_lectura = {
+        "6. Filtro Black-Hat (Aísla tinta)": blackhat,
+        "7. Binaria Inversa (Caracteres)": bin_inv,
+        "8. Segmentación y Producto Punto": vis_chars,
+    }
+    return texto, vis_chars, pasos_lectura
 
 if __name__ == "__main__":
     # Prueba rápida: detector -> lector (el flujo completo está en main.py)

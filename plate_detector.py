@@ -154,9 +154,30 @@ def detectar_y_extraer_placa(img_path):
 
     return resultado_vis, placa_enderezada
 
+def detectar_con_pasos(img_path):
+    """Ejecuta la detección guardando las imágenes intermedias para la GUI."""
+    img = cv2.imread(img_path)
+    if img is None:
+        raise FileNotFoundError(f"No se pudo abrir {img_path}")
+
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    blur = cv2.GaussianBlur(gray, (5, 5), 0)
+    _, bin_otsu = cv2.threshold(blur, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+
+    vis_det, placa_recta = detectar_y_extraer_placa(img_path)
+
+    pasos = {
+        "1. Imagen Original": img,
+        "2. Escala de Grises": gray,
+        "3. Binarización (Otsu)": bin_otsu,
+        "4. Detección y Envoltura Convexa": vis_det,
+        "5. Placa Enderezada (Perspectiva)": placa_recta,
+    }
+    return vis_det, placa_recta, pasos
+
 if __name__ == "__main__":
     # Prueba con tus 3 fotos principales
-    for archivo in ["./placa.jpg", "./placa3.jpg", "./placa4.jpg"]:
+    for archivo in ["./placa2.jpg", "./placa5.jpg", "./placa4.jpg"]:
         vis, placa_recta = detectar_y_extraer_placa(archivo)
         cv2.imshow(f"Deteccion - {archivo}", vis)
         if placa_recta is not None:

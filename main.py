@@ -12,7 +12,7 @@ def leer_placa(ruta):
     return texto, vis_det, placa_recta, vis_chars
 
 if __name__ == "__main__":
-    archivos = sys.argv[1:] or ["./placa.jpg", "./placa3.jpg", "./placa4.jpg"]
+    archivos = sys.argv[1:] or ["./placa5.jpg", "./placa3.jpg", "./placa4.jpg"]
     for archivo in archivos:
         texto, vis_det, placa, vis_chars = leer_placa(archivo)
         print(f"{archivo}: {texto}")
