@@ -1,15 +1,3 @@
-"""
-Crea las plantillas REALES en ./plantillas/<CHAR>.png (28x28, igual que tu versión anterior).
-
-Modos:
-  python crear_plantillas.py            -> automático: usa ETIQUETAS (foto -> texto conocido).
-                                           Si en alguna foto no coincide el número de caracteres,
-                                           pasa solo a modo manual para esa foto.
-  python crear_plantillas.py manual placa3.jpg
-                                        -> manual: detecta y endereza la placa, te muestra cada
-                                           carácter y guardas con la tecla correspondiente
-                                           (ESC para omitir), como antes.
-"""
 import os
 import sys
 import cv2
