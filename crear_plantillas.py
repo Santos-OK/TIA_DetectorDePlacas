@@ -22,12 +22,12 @@ ETIQUETAS = {
     "./placa.jpg":  "PYC5877",
     "./placa3.jpg": "A04SCB8",
     "./placa4.jpg": "HWY953B",
-    "./placa5.jpg": "WLU9469",
+    "./placa6.jpg": "HYN051A"
 }
 
 
 def guardar(crop_bin, char, carpeta):
-    """Guarda 28x28 como <CHAR>.png; si ya existe, como <CHAR>_2.png, <CHAR>_3.png..."""
+    """Guarda 28x28 como <CHAR>.png"""
     crop = cv2.resize(crop_bin, TAMANO_CHAR, interpolation=cv2.INTER_AREA)
     ruta = os.path.join(carpeta, f"{char}.png")
     n = 2

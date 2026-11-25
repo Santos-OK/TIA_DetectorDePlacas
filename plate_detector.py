@@ -24,7 +24,6 @@ def enderezar_placa(img, esquinas):
     (tl, tr, br, bl) = rect
 
     # Calcular alto de la nueva imagen y forzar la proporción real de una placa mexicana
-    # (30.5 x 15.2 cm ≈ 2:1). Así el carácter no sale aplastado si la foto es de lado.
     alto_izq = np.linalg.norm(bl - tl)
     alto_der = np.linalg.norm(br - tr)
     max_alto = max(int(max(alto_izq, alto_der)), 150)
@@ -90,8 +89,6 @@ def buscar_mejor_candidato(binary_img, aspect_min=1.5, aspect_max=2.8, solidez_m
             continue
         aspect = max(w, h) / min(w, h)
 
-        # Placas mexicanas tienen relación ~2:1 (en foto de lado se ve más "cuadrada",
-        # por eso en el respaldo se acepta un rango mas amplio)
         # Rectangularidad: qué tanto llena el objeto a su rectángulo mínimo
         rectang = area_rellena / (w * h)
         if solidez > solidez_min and rectang > rectang_min and (aspect_min <= aspect <= aspect_max):
@@ -111,12 +108,11 @@ def detectar_y_extraer_placa(img_path):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     blur = cv2.GaussianBlur(gray, (5, 5), 0)
 
-    # Intento 1: Umbral global de Otsu (ideal para autos oscuros como placa3 y placa4)
+    # Intento 1: Umbral global de Otsu (ideal para autos oscuros)
     _, bin_otsu = cv2.threshold(blur, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
     mejor_hull = buscar_mejor_candidato(bin_otsu)
 
-    # Intento 2 (Respaldo): Umbral adaptativo + cierre (autos claros / sombras, ej. PYC-58-77).
-    # Se prueban varios parámetros y se acepta una proporción más "cuadrada" por la perspectiva.
+    # Intento 2 (Respaldo): Umbral adaptativo + cierre (autos claros / sombras).
     if mejor_hull is None:
         kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 5))
         for bloque, c in [(51, -5), (101, -5), (75, -8), (51, -10)]:
@@ -176,7 +172,6 @@ def detectar_con_pasos(img_path):
     return vis_det, placa_recta, pasos
 
 if __name__ == "__main__":
-    # Prueba con tus 3 fotos principales
     for archivo in ["./placa2.jpg", "./placa5.jpg", "./placa4.jpg"]:
         vis, placa_recta = detectar_y_extraer_placa(archivo)
         cv2.imshow(f"Deteccion - {archivo}", vis)

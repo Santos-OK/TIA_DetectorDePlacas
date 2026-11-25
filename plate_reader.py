@@ -23,8 +23,7 @@ def preparar_vector_28x28(recorte_binario):
 
 def cargar_plantillas(carpeta=None):
     """
-    Carga plantillas reales desde ./plantillas/<CHAR>.png (y variantes <CHAR>_2.png, <CHAR>_3.png...,
-    útiles porque la tipografía cambia entre estados). Devuelve {char: [vectores]}.
+    Carga plantillas reales desde ./plantillas/<CHAR>.png. Devuelve {char: [vectores]}.
     Si falta algún carácter válido, genera un respaldo sintético.
     """
     carpeta = carpeta or CARPETA_PLANTILLAS
@@ -85,7 +84,7 @@ def segmentar_caracteres(img_placa_recortada):
             candidatos.append((x, y, w, h))
 
     # Los caracteres de una placa miden casi lo mismo: descartar los que se
-    # alejan de la altura mediana (logos, escudos, códigos QR, etc.)
+    # alejan de la altura mediana
     if candidatos:
         med = np.median([c[3] for c in candidatos])
         candidatos = [c for c in candidatos if abs(c[3] - med) <= 0.2 * med]
@@ -204,7 +203,6 @@ def leer_con_pasos(img_placa_recortada, plantillas=None):
     return texto, vis_chars, pasos_lectura
 
 if __name__ == "__main__":
-    # Prueba rápida: detector -> lector (el flujo completo está en main.py)
     from plate_detector import detectar_y_extraer_placa
 
     _, placa_recta = detectar_y_extraer_placa("./placa4.jpg")
