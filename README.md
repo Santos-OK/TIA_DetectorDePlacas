@@ -8,7 +8,7 @@ Aplicación de visión artificial desarrollada en Python que localiza, endereza 
 
 ### 1. Versión de Python
 * **Python 3.11 – 3.14** (Recomendado: **Python 3.12**).
-* *Nota:* Asegúrate de que tu instalación de Python incluya **Tkinter** (viene incluido por defecto en los instaladores oficiales de Windows y macOS; en Linux se instala con `sudo apt install python3-tk`).
+* *Nota:* La instalación debe incluir **Tkinter.**
 
 ### 2. Librerías Necesarias
 El proyecto requiere únicamente 3 paquetes externos de Python:
